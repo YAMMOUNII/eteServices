@@ -49,15 +49,17 @@ const ProductCreateModal = ({ ...otherProps }) => {
     };
 
     const handleSubmit = () => {
+        console.log(JSON.stringify(getForm));
         if (validateForm()) {
             const formData = new FormData();
             formData.append("fullName", getForm.fullName);
             formData.append("merchantEmail", getForm.merchantEmail);
             formData.append("store", getForm.store);
             formData.append("picture", getForm.image);
-            CreateProduct(formData).then(() => {
-                console.log("done");
-            });
+            console.log(formData);
+            // CreateProduct(formData).then(() => {
+            //     console.log("done");
+            // });
         }
     };
 

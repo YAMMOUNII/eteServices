@@ -1,19 +1,29 @@
 const Product = require("../models/Product");
+const uploadImage = require('./uploadController');
 
 // Create a new Product
 exports.createProduct = (req, res) => {
-  console.log("Request Body:", req.body);
-  const { fullName, merchantEmail, store, picture } = req.body;
-  const newProduct = new Product({ fullName, merchantEmail, store, picture });
-
-  newProduct.save()
-    .then((product) => {
-      res.status(201).json({ message: "Product created successfully", product });
-    })
-    .catch((err) => {
+  uploadImage.single('image')(req, res, (err) => {
+    if (err) {
       console.error("Error:", err);
       res.status(400).json({ message: "Bad Request", error: err.message });
-    });
+      return;
+    } else {
+      console.log(req.body);
+      const { fullName, merchantEmail, store, picture } = req.body;
+      const newProduct = new Product({ fullName, merchantEmail, store, picture });
+
+      newProduct.save()
+        .then((product) => {
+          res.status(201).json({ message: "Product created successfully", product });
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          res.status(400).json({ message: "Bad Request", error: err.message });
+        });
+    }
+  })
+
 };
 
 // Read all Products
