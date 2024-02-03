@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import './../utils/Style/components/Modals.scss';
 import ProductAPI from '../api/ProductAPI';
+import { useSelector } from 'react-redux';
 
 const ProductCreateModal = ({ ...otherProps }) => {
+    const getStaticData = useSelector((state) => state.static.gettingStaticData);
     const { CreateProduct } = ProductAPI();
     const [getForm, setForm] = useState({
         fullName: "",
@@ -35,8 +37,8 @@ const ProductCreateModal = ({ ...otherProps }) => {
             isValid = false;
         }
 
-        if (!getForm.store || getForm.store.length < minFieldLength) {
-            newErrors.store = `Store is required and must be at least ${minFieldLength} characters.`;
+        if (!getForm.store) {
+            newErrors.store = `Store is required!`;
             isValid = false;
         }
 
@@ -127,12 +129,24 @@ const ProductCreateModal = ({ ...otherProps }) => {
                         {errors.merchantEmail && <div className="error">{errors.merchantEmail}</div>}
                     </div>
 
-                    <div className="field">
+                    {/* <div className="field">
                         <label>Store: </label>
                         <input type="text" name="store" value={getForm.store} onChange={handleChange} />
                         {errors.store && <div className="error">{errors.store}</div>}
-                    </div>
+                    </div> */}
 
+                    <div className="field">
+                        <label>Store:</label>
+                        <select name="store" value={getForm.store} onChange={handleChange}>
+                            <option value="" disabled>Select a store</option>
+                            {getStaticData.map((store) => (
+                                <option key={store.value} value={store.value}>
+                                    {store.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.store && <div className="error">{errors.store}</div>}
+                    </div>
                     <div className="row submitForm">
                         <div className="btn_place">
                             <button

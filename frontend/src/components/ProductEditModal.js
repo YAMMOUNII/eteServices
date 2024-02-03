@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import './../utils/Style/components/Modals.scss';
 import ProductAPI from '../api/ProductAPI';
+import { useSelector } from 'react-redux';
 
 const ProductEditModal = ({ getData, onHide, ...otherProps }) => {
+    const getStaticData = useSelector((state) => state.static.gettingStaticData);
 
     const { UpdateProduct } = ProductAPI();
     const [getForm, setForm] = useState({
-        fullName: getData.fullName || "", 
+        fullName: getData.fullName || "",
         merchantEmail: getData.merchantEmail || "",
         store: getData.store || "",
     });
@@ -24,34 +26,34 @@ const ProductEditModal = ({ getData, onHide, ...otherProps }) => {
     const validateForm = () => {
         let isValid = true;
         const newErrors = {};
-    
+
         // Email validation regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
         // Minimum length for each field
         const minFieldLength = 3;
-    
+
         if (!getForm.fullName || getForm.fullName.length < minFieldLength) {
             newErrors.fullName = `Full Name is required and must be at least ${minFieldLength} characters.`;
             isValid = false;
         }
-    
+
         if (!getForm.merchantEmail || !emailRegex.test(getForm.merchantEmail)) {
             newErrors.merchantEmail = "Valid email is required.";
             isValid = false;
         }
-    
-        if (!getForm.store || getForm.store.length < minFieldLength) {
-            newErrors.store = `Store is required and must be at least ${minFieldLength} characters.`;
+
+        if (!getForm.store) {
+            newErrors.store = `Store is required!!`;
             isValid = false;
         }
-    
 
-    
+
+
         setErrors(newErrors);
         return isValid;
     };
-    
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -95,9 +97,21 @@ const ProductEditModal = ({ getData, onHide, ...otherProps }) => {
                         {errors.merchantEmail && <div className="error">{errors.merchantEmail}</div>}
                     </div>
 
-                    <div className="field">
+                    {/* <div className="field">
                         <label>Store: </label>
                         <input type="text" name="store" value={getForm.store} onChange={handleChange} />
+                        {errors.store && <div className="error">{errors.store}</div>}
+                    </div> */}
+                    <div className="field">
+                        <label>Store:</label>
+                        <select name="store" value={getForm.store} onChange={handleChange}>
+                            <option value="" disabled>Select a store</option>
+                            {getStaticData.map((store) => (
+                                <option key={store.value} value={store.value}>
+                                    {store.name}
+                                </option>
+                            ))}
+                        </select>
                         {errors.store && <div className="error">{errors.store}</div>}
                     </div>
 
