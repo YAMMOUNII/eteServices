@@ -1,0 +1,40 @@
+@import "./../variables.scss";
+$max-width-desktop: 475px;
+$max-width-tablet: 400px;
+$max-width-mobile: 300px;
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#closeModalBtn {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    background-color: unset;
+    border: unset;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#ProductModal {
+    max-width: 80%;
+
+    .modal-content {
+        padding: 48px 28px;
+        border-radius: 12px;
+        border: unset;
+        background-color: $white;
+        position: relative;
+
+        .ProductModalStyle {
+            padding: 0 16px;
+            height: 60vh;
+            overflow: hidden;
+            overflow-y: scroll;
+
+        }
+    }
+}

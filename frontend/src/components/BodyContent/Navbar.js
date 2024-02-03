@@ -1,7 +1,9 @@
 import { useState } from "react";
+import ProductCreateModal from "../ProductModal";
 
 const Navbar = () => {
     const [getActiveButton, setActiveButton] = useState("product");
+    const [getModalCreateProduct, setModalCreateProduct] = useState(false);
 
     return (
         <div className="navbar">
@@ -17,11 +19,18 @@ const Navbar = () => {
                 </button>
                 <button
                     className={`barButton ${getActiveButton === "addProduct" ? "active" : ""}`}
-                    onClick={() => setActiveButton("addProduct")}
+                    onClick={() => {
+                        setActiveButton("addProduct");
+                        setModalCreateProduct(true);
+                    }}
                 >
                     Add Product
                 </button>
             </div>
+
+            <ProductCreateModal
+                show={getModalCreateProduct}
+                onHide={() => setModalCreateProduct(false)} />
         </div>
     );
 };
