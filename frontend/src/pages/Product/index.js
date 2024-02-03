@@ -56,7 +56,7 @@ function Product() {
   return (
     <>
       <div className="ProductPage">
-        <p>Product</p>
+        <p>Product - {data.length}</p> 
         {isloading === "pending" ?
           <TableSkeleton />
           :
