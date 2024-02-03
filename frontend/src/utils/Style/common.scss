@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: $tertiary-color;
+  -webkit-box-shadow: $shadow;
+  border-radius: $border-radius;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary-color;
+  -webkit-box-shadow: $shadow;
+  border-radius: $border-radius;
+}

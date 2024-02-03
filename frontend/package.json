@@ -1,0 +1,65 @@
+{
+  "name": "project_syncfusion_dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@fvilers/disable-react-devtools": "^1.3.0",
+    "@mui/material": "^5.11.16",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.3",
+    "jwt-decode": "^3.1.2",
+    "qrcode": "^1.5.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
+    "react-dom": "^18.2.0",
+    "react-dotenv": "^0.1.3",
+    "react-loading-skeleton": "^3.3.1",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.6.2",
+    "react-scripts": "5.0.1",
+    "react-table": "^7.8.0",
+    "react-toastify": "^9.1.2",
+    "redux": "^4.2.0",
+    "rsuite": "^5.34.1",
+    "sass": "^1.58.3",
+    "schema-typed": "^2.1.2",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-dotenv && react-scripts start",
+    "build": "react-dotenv && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "AUTHENTICATION_HOST",
+      "Beta"
+    ]
+  },
+  "devDependencies": {
+    "faker": "5.5.3"
+  }
+}
