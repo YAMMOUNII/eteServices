@@ -4,7 +4,9 @@ const Product = require("../models/Product");
 exports.createProduct = (req, res) => {
   console.log("Request Body:", req.body);
   const { fullName, merchantEmail, store, picture } = req.body;
-  Product.create({ fullName, merchantEmail, store, picture })
+  const newProduct = new Product({ fullName, merchantEmail, store, picture });
+
+  newProduct.save()
     .then((product) => {
       res.status(201).json({ message: "Product created successfully", product });
     })
@@ -16,7 +18,7 @@ exports.createProduct = (req, res) => {
 
 // Read all Products
 exports.getAllProducts = (req, res) => {
-  Product.findAll()
+  Product.find()
     .then((products) => {
       res.json({ products });
     })
@@ -29,7 +31,7 @@ exports.getAllProducts = (req, res) => {
 // Read a specific Product by ID
 exports.getProductById = (req, res) => {
   const productId = req.params.id;
-  Product.findByPk(productId)
+  Product.findById(productId)
     .then((product) => {
       if (product) {
         res.json({ product });
@@ -47,19 +49,13 @@ exports.getProductById = (req, res) => {
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
   const { fullName, merchantEmail, store, picture } = req.body;
-  Product.findByPk(productId)
-    .then((product) => {
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      product.fullName = fullName;
-      product.merchantEmail = merchantEmail;
-      product.store = store;
-      product.picture = picture;
-      return product.save();
-    })
+  Product.findByIdAndUpdate(productId, { fullName, merchantEmail, store, picture }, { new: true })
     .then((updatedProduct) => {
-      res.json({ message: "Product updated successfully", product: updatedProduct });
+      if (updatedProduct) {
+        res.json({ message: "Product updated successfully", product: updatedProduct });
+      } else {
+        res.status(404).json({ message: "Product not found" });
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -70,15 +66,13 @@ exports.updateProduct = (req, res) => {
 // Delete a product by ID
 exports.deleteProduct = (req, res) => {
   const productId = req.params.id;
-  Product.findByPk(productId)
+  Product.findByIdAndDelete(productId)
     .then((product) => {
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
+      if (product) {
+        res.json({ message: "Product deleted successfully" });
+      } else {
+        res.status(404).json({ message: "Product not found" });
       }
-      return product.destroy();
-    })
-    .then(() => {
-      res.json({ message: "Product deleted successfully" });
     })
     .catch((err) => {
       console.error(err);
