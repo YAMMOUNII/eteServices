@@ -19,29 +19,36 @@ const ProductCreateModal = ({ ...otherProps }) => {
         let isValid = true;
         const newErrors = {};
 
-        if (!getForm.fullName) {
-            newErrors.fullName = "fullName is required.";
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Minimum length for each field
+        const minFieldLength = 3;
+
+        if (!getForm.fullName || getForm.fullName.length < minFieldLength) {
+            newErrors.fullName = `Full Name is required and must be at least ${minFieldLength} characters.`;
             isValid = false;
         }
 
-        if (!getForm.merchantEmail) {
-            newErrors.merchantEmail = "merchantEmail is required.";
+        if (!getForm.merchantEmail || !emailRegex.test(getForm.merchantEmail)) {
+            newErrors.merchantEmail = "Valid email is required.";
             isValid = false;
         }
 
-        if (!getForm.store) {
-            newErrors.store = "store is required.";
+        if (!getForm.store || getForm.store.length < minFieldLength) {
+            newErrors.store = `Store is required and must be at least ${minFieldLength} characters.`;
             isValid = false;
         }
 
         if (!getForm.image) {
-            newErrors.image = "image is required.";
+            newErrors.image = "Image is required.";
             isValid = false;
         }
 
         setErrors(newErrors);
         return isValid;
     };
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -63,6 +70,15 @@ const ProductCreateModal = ({ ...otherProps }) => {
             console.log(formData);
             CreateProduct(formData).then(() => {
                 console.log("done");
+                otherProps.onHide();
+                setForm({
+                    fullName: "",
+                    merchantEmail: "",
+                    store: "",
+                    picture: "",
+                    image: null,
+                    imagePath: null
+                })
             });
         }
     };

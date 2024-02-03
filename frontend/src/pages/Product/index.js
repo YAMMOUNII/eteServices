@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductEditModal from "../../components/ProductEditModal";
 
 function Product() {
-  const { DeleteProduct,GetProductById } = ProductAPI();
+  const { DeleteProduct } = ProductAPI();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.gettingProductData);
   const isloading = useSelector((state) => state.product.isloading);
@@ -18,7 +18,7 @@ function Product() {
   const [getData, setData] = useState([]);
 
   const columns = [
-    { Header: 'Image', accessor: 'picture', Cell: ({ row }) => <img src={`images/${row.original?.picture}`} width={50} /> },
+    { Header: 'Image', accessor: 'picture', Cell: ({ row }) => <img src={`images/${row.original?.picture}`} width={50}  height={50} style={{objectFit: 'contain',border: '1px solid #ccc', borderRadius: '10px'}}/> },
     { Header: 'ID', accessor: '', Cell: ({ row }) => <>#{row.original?._id}</> },
     { Header: 'Full Name', accessor: 'fullName', Cell: ({ row }) => <>{row.original?.fullName}</> },
     { Header: 'Merchant Email', accessor: 'merchantEmail', Cell: ({ row }) => <>{row.original?.merchantEmail}</> },
@@ -26,8 +26,8 @@ function Product() {
     { Header: '', accessor: 'delete', Cell: ({ row }) => <button className="button" onClick={() => DeleteProduct(row.original?._id)}><FontAwesomeIcon icon={faTrash} /></button> },
     {
       Header: '', accessor: 'edit', Cell: ({ row }) => <button className="button" onClick={() => {
-          setData(row.original);
-          setModalUpdateProduct(true);
+        setData(row.original);
+        setModalUpdateProduct(true);
       }}><FontAwesomeIcon icon={faPenToSquare} /></button>
     },
   ]

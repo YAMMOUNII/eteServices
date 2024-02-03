@@ -1,3 +1,56 @@
 .WelcomePage {
-  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #1f293a;
+    overflow: hidden;
+
+    .container {
+        position: relative;
+        width: 256px;
+        height: 256px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            position: absolute;
+            left: 0;
+            width: 32px;
+            height: 6px;
+            background: #2c4766;
+            border-radius: 8px;
+            transform-origin: 128px;
+            transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
+            animation: animateBlink 3s linear infinite;
+            animation-delay: calc(var(--i) * (3s / 50));
+        }
+    }
+
+    @keyframes animateBlink {
+        0% {
+            background: #0ef;
+        }
+
+        25% {
+            background: #2c4766;
+        }
+    }
+
+    .login-box {
+        position: absolute;
+        width: 400px;
+        text-align: center;
+        button{
+            background-color: #0ef;
+            padding: 20px 40px;
+            text-align: center;
+            border: 1px solid #0ef;
+            border-radius: 10px;
+        }
+
+    }
+
+
 }

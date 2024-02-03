@@ -59,6 +59,7 @@ const ProductAPI = () => {
     try {
       const response = await Client.put(`/${suffix}/update/${id}`, data);
       if (response?.status === 200) {
+        dispatch(fetchAllProduct());
         return response?.product;
       }
 
