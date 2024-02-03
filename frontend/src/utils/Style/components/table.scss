@@ -1,82 +1,75 @@
-#table-container {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-  zoom: 0.85;
-  width: 100%;
+@import './../variables.scss';
 
-  table {
-    border-radius: 8px;
+.table-container {
     width: 100%;
-    border: 1px solid #226d96;
-    box-shadow: 2px 3px 10px #7777771a;
-    overflow: hidden;
 
-    thead {
-      background-color: #658fa5;
-      color: black;
-      font-size: 16px;
+    table {
+        border-radius: 8px;
+        width: 100%;
+        border: 1px solid $color-gray-200;
+        overflow: hidden;
+
+        thead {
+            background-color: $color-gray-300;
+            color: $color-gray-900;
+            font-size: $font-size-sm;
+        }
+
+        tbody {
+            color: $color-gray-900;
+            font-size: $font-size-sm;
+
+            tr:nth-child(even) {
+                background-color: $color-gray-50;
+            }
+
+            tr:nth-child(odd) {
+                background-color: $white;
+            }
+
+            tr:hover {
+                background-color: $color-gray-200;
+            }
+
+            .showDetails {
+                background-color: unset;
+                border: unset;
+            }
+        }
+
+        tr {
+            th {
+                text-align: center;
+                padding: 16px 3px;
+            }
+
+            td {
+                text-align: center;
+                padding: 12px 3px;
+
+                .checkboxContainer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+
+                    .checkbox {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                .status {
+                    border-radius: 16px;
+                    background: $tertiary-color;
+                    mix-blend-mode: multiply;
+                    font-family: $font-size-md;
+                    font-size: $font-size-md;
+                    color: $tertiary-color;
+                    padding: 2px 8px;
+                }
+            }
+        }
+
     }
 
-    tbody {
-      color: black;
-      font-size: 16px;
-
-      tr:nth-child(even) {
-        background-color: #dfdfdf;
-      }
-
-      tr:nth-child(odd) {
-        background-color: #b5b5b5;
-      }
-
-      tr:hover {
-        background-color: #e8f0f4;
-      }
-
-      .showDetails {
-        background-color: unset;
-        border: unset;
-      }
-    }
-
-    tr {
-      th {
-        text-align: center;
-        padding: 16px 3px;
-      }
-
-      td {
-        text-align: center;
-        padding: 12px 3px;
-      }
-    }
-  }
-
-  .pagination {
-    display: flex;
-    padding-top: 8px;
-    align-items: flex-end;
-    justify-content: flex-end;
-
-    .pages {
-      font-family: Poppins Medium;
-      font-size: 16px;
-      color: darkcyan;
-    }
-
-    input,
-    button,
-    select {
-      font-family: Poppins SemiBold;
-      font-size: 16px;
-      color: #226d96;
-      padding: 6px 14px;
-      border-radius: 8px;
-      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-      background-color: white;
-      border: 1px solid gray;
-      margin: 0 2px;
-    }
-  }
 }
