@@ -58,6 +58,14 @@
                     }
                 }
 
+                .button{
+                    border-radius: 16px;
+                    background: $tertiary-color;
+                    border: unset;
+                    background-color: unset;
+                }
+                
+
                 .status {
                     border-radius: 16px;
                     background: $tertiary-color;
