@@ -9,9 +9,9 @@ const ProductAPI = () => {
   const navigate = useNavigate();
   const suffix = "product";
 
-  const CreateProduct = async ({ formdata }) => {
+  const CreateProduct = async (formdata) => {
     try {
-      const response = await ClientFile.post(`/${suffix}/create`, { formdata });
+      const response = await ClientFile.post(`/${suffix}/create`, formdata);
       if (response?.status === 201) {
         toast.success(response?.data?.message);
       }

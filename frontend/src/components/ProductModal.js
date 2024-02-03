@@ -11,6 +11,7 @@ const ProductCreateModal = ({ ...otherProps }) => {
         store: "",
         picture: "",
         image: null,
+        imagePath: null
     });
     const [errors, setErrors] = useState({});
 
@@ -55,11 +56,14 @@ const ProductCreateModal = ({ ...otherProps }) => {
             formData.append("fullName", getForm.fullName);
             formData.append("merchantEmail", getForm.merchantEmail);
             formData.append("store", getForm.store);
-            formData.append("picture", getForm.image);
+            // formData.append("picture", getForm.imagePath);
+            // formData.append("imagePath", getForm.image);
+            formData.append("image", getForm.image);
+
             console.log(formData);
-            // CreateProduct(formData).then(() => {
-            //     console.log("done");
-            // });
+            CreateProduct(formData).then(() => {
+                console.log("done");
+            });
         }
     };
 

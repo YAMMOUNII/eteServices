@@ -3,12 +3,13 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../frontend/public/images/tstt");
+    const destinationPath = path.join(__dirname, "../../frontend/public/images");
+    cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
-    const imagePath = req.body.imagePath;
-
-    cb(null,imagePath);
+    const timestamp = new Date().getTime();
+    const newFileName = `${file.originalname.split(".").join(`_${timestamp}.`)}`;
+    cb(null, newFileName);
   },
 });
 
