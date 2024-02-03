@@ -37,12 +37,41 @@ const ProductAPI = () => {
 
       return response?.status;
     } catch (e) {
-      toast.error("Something went wrong while creating a product !!");
+      toast.error("Something went wrong while Deleting a product !!");
     }
   };
 
+
+  const GetProductById = async (id) => {
+    try {
+      const response = await Client.delete(`/${suffix}/getById/${id}`);
+      if (response?.status === 200) {
+        return response?.product;
+      }
+
+
+    } catch (e) {
+      toast.error("Something went wrong while getting a product !!");
+    }
+  };
+
+  const UpdateProduct = async (data, id) => {
+    try {
+      const response = await Client.put(`/${suffix}/update/${id}`, data);
+      if (response?.status === 200) {
+        return response?.product;
+      }
+
+
+    } catch (e) {
+      toast.error("Something went wrong while updating a product !!");
+    }
+  };
+
+
+
   return {
-    CreateProduct, DeleteProduct
+    CreateProduct, DeleteProduct, GetProductById, UpdateProduct
   };
 };
 

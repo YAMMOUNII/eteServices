@@ -19,6 +19,26 @@ $max-width-mobile: 300px;
     align-items: center;
 }
 
+// #ProductModal {
+//     max-width: 80%;
+
+//     .modal-content {
+//         padding: 48px 28px;
+//         border-radius: 12px;
+//         border: unset;
+//         background-color: $white;
+//         position: relative;
+
+//         .ProductModalStyle {
+//             padding: 0 16px;
+//             height: 60vh;
+//             overflow: hidden;
+//             overflow-y: scroll;
+
+//         }
+//     }
+// }
+
 #ProductModal {
     max-width: 80%;
 
@@ -26,7 +46,7 @@ $max-width-mobile: 300px;
         padding: 48px 28px;
         border-radius: 12px;
         border: unset;
-        background-color: $white;
+        background-color: white;
         position: relative;
 
         .ProductModalStyle {
@@ -35,6 +55,67 @@ $max-width-mobile: 300px;
             overflow: hidden;
             overflow-y: scroll;
 
+            #CreateProduct {
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .image{
+                    width: 100px;
+                    height: 100px;
+                    object-fit: contain;
+                    border: 1px solid #ccc; 
+                    border-radius: 10px;
+                }
+                .field {
+                    margin-bottom: 15px;
+
+                    label {
+                        display: block;
+                        margin-bottom: 5px;
+                        font-weight: bold;
+                        width: 200px;
+                    }
+
+                    input {
+                        width: 100%;
+                        padding: 8px;
+                        font-size: 1rem;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+
+                        // Add more input styles as needed
+                    }
+
+                    .error {
+                        color: red;
+                        margin-top: 5px;
+                        font-size: 0.8rem;
+                    }
+                }
+
+                .row.submitForm {
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 20px;
+
+                    .btn_place {
+                        button.submitBtn {
+                            padding: 10px 20px;
+                            background-color: #007bff;
+                            color: #fff;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: #0056b3;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

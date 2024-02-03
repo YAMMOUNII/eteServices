@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import './../utils/Style/components/Modals.scss';
 import ProductAPI from '../api/ProductAPI';
 
-const ProductCreateModal = ({ ...otherProps }) => {
-    const { CreateProduct } = ProductAPI();
+const ProductEditModal = ({ getData, onHide, ...otherProps }) => {
+
+    const { UpdateProduct } = ProductAPI();
     const [getForm, setForm] = useState({
-        fullName: "",
-        merchantEmail: "",
-        store: "",
-        picture: "",
-        image: null,
-        imagePath: null
+        fullName: getData.fullName || "", 
+        merchantEmail: getData.merchantEmail || "",
+        store: getData.store || "",
     });
+    useEffect(() => {
+        setForm({
+            fullName: getData.fullName,
+            merchantEmail: getData.merchantEmail,
+            store: getData.store,
+        });
+    }, [getData]);
+
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
@@ -34,11 +40,6 @@ const ProductCreateModal = ({ ...otherProps }) => {
             isValid = false;
         }
 
-        if (!getForm.image) {
-            newErrors.image = "image is required.";
-            isValid = false;
-        }
-
         setErrors(newErrors);
         return isValid;
     };
@@ -49,35 +50,15 @@ const ProductCreateModal = ({ ...otherProps }) => {
         setErrors({ ...errors, [name]: "" });
     };
 
-    const handleSubmit = () => {
-        console.log(JSON.stringify(getForm));
+    const handleSubmit = async () => {
         if (validateForm()) {
-            const formData = new FormData();
-            formData.append("fullName", getForm.fullName);
-            formData.append("merchantEmail", getForm.merchantEmail);
-            formData.append("store", getForm.store);
-            // formData.append("picture", getForm.imagePath);
-            // formData.append("imagePath", getForm.image);
-            formData.append("image", getForm.image);
-
-            console.log(formData);
-            CreateProduct(formData).then(() => {
-                console.log("done");
-            });
-        }
-    };
-
-    const handleFile = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const fileName = file.name;
-            const timestamp = new Date().getTime();
-            const newFileName = `${fileName.split(".").join(`_${timestamp}.`)}`;
-            setForm({
-                ...getForm,
-                image: file,
-                picture: newFileName,
-            });
+            try {
+                await UpdateProduct(getForm, getData._id);
+                onHide(); // Hide the modal after successful update
+            } catch (error) {
+                console.error("Error updating product:", error);
+                // Handle the error (e.g., show an error message)
+            }
         }
     };
 
@@ -87,22 +68,17 @@ const ProductCreateModal = ({ ...otherProps }) => {
             centered
             id='ProductModal'
         >
-            <button id='closeModalBtn' onClick={otherProps.onHide}><img src='/images/logo/x-close.svg' alt='x-close' /></button>
+            <button id='closeModalBtn' onClick={onHide}><img src='/images/logo/x-close.svg' alt='x-close' /></button>
             <div className='ProductModalStyle'>
                 <div id="CreateProduct">
-                    <div className="title">Create new Product</div>
+                    <div className="title">Update Product</div>
 
-                    <div className="field">
-                        <label>Image:</label>
-                        <input type="file" onChange={handleFile} />
-                        {errors.image && <div className="error">{errors.image}</div>}
-                    </div>
+                    <img className="image" src={`images/${getData.picture}`} alt="Product" />
 
                     <div className="field">
                         <label>  Full Name:    </label>
                         <input type="text" name="fullName" value={getForm.fullName} onChange={handleChange} />
                         {errors.fullName && <div className="error">{errors.fullName}</div>}
-
                     </div>
 
                     <div className="field">
@@ -134,4 +110,4 @@ const ProductCreateModal = ({ ...otherProps }) => {
     );
 }
 
-export default ProductCreateModal;
+export default ProductEditModal;
